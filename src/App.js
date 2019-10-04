@@ -88,7 +88,9 @@ class BooksApp extends React.Component {
   handleRemoveBook = book => {
     console.log("Remove book: ", book);
     this.removeBookFromExistingShelf(book.id);
-    this.removeBookFromTotal();
+    if (book.shelf) {
+      this.removeBookFromTotal();
+    }
   };
 
   addBookToTotal() {
@@ -131,14 +133,12 @@ class BooksApp extends React.Component {
               shelves={shelves}
               addBook={this.handleAddBookToShelf}
               removeBook={this.handleRemoveBook}
+              deleteAll={this.clearLocalStorage}
               total={totalBooks}
               {...props}
             />
           )}
         />
-        <button type="button" onClick={this.clearLocalStorage}>
-          Delete All
-        </button>
       </div>
     );
   }

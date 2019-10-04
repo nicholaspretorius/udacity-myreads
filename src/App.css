@@ -205,3 +205,25 @@ link:active {
 .muted {
   color: #999;
 }
+
+/* delete button */
+.delete {
+  position: fixed;
+  left: 25px;
+  bottom: 25px;
+}
+
+.btn-delete {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #2e7d32;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  outline: 0;
+  color: #fff;
+  font: bold 18px "Roboto", sans-serif;
+}
