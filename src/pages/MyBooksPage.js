@@ -5,20 +5,26 @@ import Bookshelf from "./components/Bookshelf";
 import PageTitle from "./components/PageTitle";
 
 class MyBooksPage extends Component {
-  state = {
-    shelves: []
-  };
+  state = {};
 
   componentDidMount() {}
 
   render() {
+    const { shelves, addBook } = this.props;
+    console.log("Shelves: ", shelves);
+
     return (
       <div className="list-books">
         <PageTitle title="My Reads" />
         <div className="list-books-content">
-          <div>
-            <Bookshelf name="Currently Reading" />
-            <div className="bookshelf">
+          {shelves.length > 0 && (
+            <div>
+              {shelves.map(shelf => (
+                <Bookshelf key={shelf.id} name={shelf.name} books={shelf.books} addBook={addBook} />
+              ))}
+            </div>
+          )}
+          {/* <div className="bookshelf">
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
@@ -171,8 +177,7 @@ class MyBooksPage extends Component {
                   </li>
                 </ol>
               </div>
-            </div>
-          </div>
+            </div> */}
         </div>
         <div className="open-search">
           <Link to="/search">Add a book</Link>

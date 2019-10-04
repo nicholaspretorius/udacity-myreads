@@ -21,6 +21,7 @@ class SearchPage extends Component {
 
   render() {
     const { query, results } = this.state;
+    const { addBook } = this.props;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -53,7 +54,7 @@ class SearchPage extends Component {
             </p>
             <ol className="books-grid">
               {results.map(result => (
-                <Book key={result.id} book={result} />
+                <Book key={result.id} book={result} addBook={addBook} />
               ))}
             </ol>
           </div>
