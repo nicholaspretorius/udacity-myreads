@@ -10,11 +10,11 @@ class MyBooksPage extends Component {
   componentDidMount() {}
 
   render() {
-    const { shelves, addBook, total } = this.props;
+    const { shelves, addBook, removeBook, total } = this.props;
 
     return (
       <div className="list-books">
-        <PageTitle title="My Reads" />
+        <PageTitle title={`My Reads (${total})`} />
         <div className="list-books-content">
           {total === 0 ? (
             <div className="bookshelf">
@@ -29,6 +29,7 @@ class MyBooksPage extends Component {
                     name={shelf.name}
                     books={shelf.books}
                     addBook={addBook}
+                    removeBook={removeBook}
                   />
                 ) : (
                   ""

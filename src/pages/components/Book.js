@@ -2,7 +2,7 @@ import React from "react";
 
 import ShelfChanger from "./ShelfChanger";
 
-const Book = ({ book, addBook }) => {
+const Book = ({ book, addBook, removeBook }) => {
   return (
     <li>
       <div className="book">
@@ -15,7 +15,7 @@ const Book = ({ book, addBook }) => {
               backgroundImage: `url("${book.imageLinks.thumbnail}")`
             }}
           ></div>
-          <ShelfChanger addBook={addBook} book={book} />
+          <ShelfChanger addBook={addBook} book={book} removeBook={removeBook} />
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">
