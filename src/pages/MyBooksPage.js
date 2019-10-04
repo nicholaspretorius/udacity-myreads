@@ -11,7 +11,6 @@ class MyBooksPage extends Component {
 
   render() {
     const { shelves, addBook } = this.props;
-    console.log("Shelves: ", shelves);
 
     return (
       <div className="list-books">

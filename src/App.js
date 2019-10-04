@@ -27,10 +27,26 @@ class BooksApp extends React.Component {
     ]
   };
 
-  handleAddBookToShelf = (book, shelf) => {
+  removeBookFromExistingShelf = book => {
     const shelves = [...this.state.shelves];
-    const index = shelves.findIndex(s => s.id === shelf);
-    shelves[index].books = [...shelves[index].books, book];
+
+    shelves.map(shelf => {
+      const updated = shelf.books.filter(b => {
+        return b.id !== book.id;
+      });
+      shelf.books = [...updated];
+      return shelf;
+    });
+
+    this.setState({ shelves });
+  };
+
+  handleAddBookToShelf = (book, shelf) => {
+    this.removeBookFromExistingShelf(book);
+
+    const shelves = [...this.state.shelves];
+    const shelfIndex = shelves.findIndex(s => s.id === shelf);
+    shelves[shelfIndex].books = [...shelves[shelfIndex].books, book];
     this.setState({ shelves });
   };
 
