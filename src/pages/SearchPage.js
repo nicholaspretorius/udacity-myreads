@@ -9,6 +9,7 @@ import Book from "./components/Book";
 class SearchPage extends Component {
   state = {
     query: "",
+    hasSearched: false,
     results: []
   };
 
@@ -17,12 +18,18 @@ class SearchPage extends Component {
   handleChange = _.debounce(async query => {
     console.log(query);
     this.setState({ query });
-    const results = await search(query);
+    let results = [];
+
+    if (query !== "") {
+      results = await search(query);
+      this.setState({ hasSearched: true });
+    }
+
     this.setState({ results });
   }, 500);
 
   render() {
-    const { query, results } = this.state;
+    const { query, hasSearched, results } = this.state;
     const { addBook } = this.props;
     return (
       <div className="search-books">
@@ -42,16 +49,22 @@ class SearchPage extends Component {
           </div>
         </div>
 
-        {results.length > 0 && (
+        {hasSearched && results.length > 0 && (
           <div className="search-books-results">
             <p>
-              Showing {results.length} result for search '{query}'.
+              Showing {results.length} {results.length === 1 ? "result" : "results"} for search '
+              {query}'.
             </p>
             <ol className="books-grid">
               {results.map(result => (
                 <Book key={result.id} book={result} addBook={addBook} />
               ))}
             </ol>
+          </div>
+        )}
+        {hasSearched && results.error && (
+          <div className="search-books-results">
+            <p>There are no results for that query.</p>
           </div>
         )}
       </div>
