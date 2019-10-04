@@ -13,7 +13,12 @@ class BookShelf extends Component {
     const { name, books, addBook } = this.props;
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{name}</h2>
+        <h2 className="bookshelf-title">
+          {name}{" "}
+          <span className="muted">
+            ({books.length} {books.length === 1 ? "book" : "books"})
+          </span>
+        </h2>
         <div className="bookshelf-books">
           {books && (
             <ol className="books-grid">

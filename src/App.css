@@ -199,3 +199,9 @@ link:active {
   text-align: center;
   font-size: 0.8em;
 }
+
+/* utils */
+
+.muted {
+  color: #999;
+}

@@ -24,7 +24,8 @@ class BooksApp extends React.Component {
         name: "Read",
         books: []
       }
-    ]
+    ],
+    totalBooks: 0
   };
 
   removeBookFromExistingShelf = book => {
@@ -61,12 +62,19 @@ class BooksApp extends React.Component {
     if (shelf !== "none") {
       const shelfIndex = shelves.findIndex(s => s.id === shelf);
       shelves[shelfIndex].books = [...shelves[shelfIndex].books, newBook];
+      this.addBookToTotal();
       this.setState({ shelves });
     }
   };
 
+  addBookToTotal() {
+    this.setState(currentState => ({
+      totalBooks: currentState.totalBooks + 1
+    }));
+  }
+
   render() {
-    const { shelves } = this.state;
+    const { shelves, totalBooks } = this.state;
     return (
       <div className="app">
         <Route
@@ -77,7 +85,12 @@ class BooksApp extends React.Component {
           path="/"
           exact
           render={props => (
-            <MyBooksPage shelves={shelves} {...props} addBook={this.handleAddBookToShelf} />
+            <MyBooksPage
+              shelves={shelves}
+              addBook={this.handleAddBookToShelf}
+              total={totalBooks}
+              {...props}
+            />
           )}
         />
       </div>
