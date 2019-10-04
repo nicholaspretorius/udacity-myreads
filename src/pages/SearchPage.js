@@ -49,11 +49,11 @@ class SearchPage extends Component {
         {results.length > 0 && (
           <div className="search-books-results">
             <p>
-              Showing {results.length} for search {query}.
+              Showing {results.length} result for search '{query}'.
             </p>
             <ol className="books-grid">
               {results.map(result => (
-                <Book book={result} />
+                <Book key={result.id} book={result} />
               ))}
             </ol>
           </div>

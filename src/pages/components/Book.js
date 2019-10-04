@@ -3,6 +3,7 @@ import React from "react";
 import ShelfChanger from "./ShelfChanger";
 
 const Book = ({ book }) => {
+  console.log("Book: ", book);
   return (
     <li>
       <div className="book">
@@ -19,7 +20,7 @@ const Book = ({ book }) => {
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">
-          {book && book.authors.map(author => <span>{author}</span>)}
+          {book && book.authors.map(author => <span key={author}>{author}</span>)}
         </div>
       </div>
     </li>
