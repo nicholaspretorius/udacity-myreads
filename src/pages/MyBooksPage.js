@@ -38,11 +38,13 @@ class MyBooksPage extends Component {
             </div>
           )}
         </div>
-        <div className="delete">
-          <button className="btn-delete" type="button" onClick={deleteAll}>
-            X
-          </button>
-        </div>
+        {total > 0 && (
+          <div className="delete">
+            <button className="btn-delete" type="button" onClick={deleteAll}>
+              X
+            </button>
+          </div>
+        )}
         <div className="open-search">
           <Link to="/search">Add a book</Link>
         </div>
