@@ -32,7 +32,7 @@ class BooksApp extends React.Component {
 
     shelves.map(shelf => {
       const updated = shelf.books.filter(b => {
-        return b.id !== book.id;
+        return b.id !== book;
       });
       shelf.books = [...updated];
       return shelf;
@@ -42,12 +42,27 @@ class BooksApp extends React.Component {
   };
 
   handleAddBookToShelf = (book, shelf) => {
-    this.removeBookFromExistingShelf(book);
+    console.log("Book: ", book);
+    this.removeBookFromExistingShelf(book.id);
+
+    const newBook = {
+      id: book.id,
+      title: book.title,
+      subtitle: book.subtitle,
+      authors: book.authors,
+      shelf: shelf,
+      averageRating: book.averageRating,
+      ratingsCount: book.ratingsCount,
+      categories: book.categories,
+      imageLinks: book.imageLinks
+    };
 
     const shelves = [...this.state.shelves];
-    const shelfIndex = shelves.findIndex(s => s.id === shelf);
-    shelves[shelfIndex].books = [...shelves[shelfIndex].books, book];
-    this.setState({ shelves });
+    if (shelf !== "none") {
+      const shelfIndex = shelves.findIndex(s => s.id === shelf);
+      shelves[shelfIndex].books = [...shelves[shelfIndex].books, newBook];
+      this.setState({ shelves });
+    }
   };
 
   render() {

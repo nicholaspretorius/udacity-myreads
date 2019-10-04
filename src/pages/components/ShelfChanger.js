@@ -1,16 +1,39 @@
 import React from "react";
 
 const ShelfChanger = ({ book, addBook }) => {
+  const options = [
+    {
+      value: "wantToRead",
+      label: "Want to Read"
+    },
+    {
+      value: "currentlyReading",
+      label: "Currently Reading"
+    },
+    {
+      value: "read",
+      label: "Read"
+    },
+    {
+      value: "none",
+      label: "None"
+    }
+  ];
+
   return (
     <div className="book-shelf-changer">
-      <select onChange={e => addBook(book, e.target.value)}>
+      <select
+        onChange={e => addBook(book, e.target.value)}
+        defaultValue={book.shelf ? book.shelf : "move"}
+      >
         <option value="move" disabled>
           Move to...
         </option>
-        <option value="currentlyReading">Currently Reading</option>
-        <option value="wantToRead">Want to Read</option>
-        <option value="read">Read</option>
-        <option value="none">None</option>
+        {options.map(option => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
       </select>
     </div>
   );
