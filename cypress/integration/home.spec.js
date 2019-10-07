@@ -7,7 +7,11 @@ describe("Loading Home page", () => {
     cy.get("h1").contains("My Reads");
   });
 
-  it("click on the '+' button", () => {
+  it("does not display the 'delete' button", () => {
+    cy.get("button.btn-delete").should("not.exist");
+  });
+
+  it("find and click on the '+' button", () => {
     cy.get("div.open-search > a")
       .click()
       .url()
