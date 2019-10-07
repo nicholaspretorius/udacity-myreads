@@ -5,6 +5,7 @@ import "./App.css";
 
 import MyBooksPage from "./pages/MyBooksPage";
 import SearchPage from "./pages/SearchPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const SHELVES = [
   {
@@ -139,6 +140,7 @@ class BooksApp extends React.Component {
             />
           )}
         />
+        <Route component={NotFoundPage} />
       </div>
     );
   }
