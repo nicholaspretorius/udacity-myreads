@@ -47,6 +47,14 @@ describe("adding 1 book from /search page", () => {
   it("displays the number of books with count (3) in the header", () => {
     cy.get("h1").contains("My Reads (3)");
   });
+
+  it("reloads the page and maintains the number of books (3)", () => {
+    const shelves = `[{"id":"currentlyReading","name":"Currently Reading","books":[{"id":"zLFSPdIuqKsC","title":"Artificial Intelligence","subtitle":"The Very Idea","authors":["John Haugeland"],"shelf":"currentlyReading","averageRating":4.5,"ratingsCount":2,"categories":["Computers"],"imageLinks":{"smallThumbnail":"http://books.google.com/books/content?id=zLFSPdIuqKsC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api","thumbnail":"http://books.google.com/books/content?id=zLFSPdIuqKsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"}}]},{"id":"wantToRead","name":"Want to Read","books":[{"id":"8jZBksh-bUMC","title":"Artificial Intelligence","subtitle":"A Modern Approach","authors":["Stuart Jonathan Russell","Peter Norvig"],"shelf":"wantToRead","averageRating":4.5,"ratingsCount":10,"categories":["Computers"],"imageLinks":{"smallThumbnail":"http://books.google.com/books/content?id=8jZBksh-bUMC&printsec=frontcover&img=1&zoom=5&source=gbs_api","thumbnail":"http://books.google.com/books/content?id=8jZBksh-bUMC&printsec=frontcover&img=1&zoom=1&source=gbs_api"}}]},{"id":"read","name":"Read","books":[{"id":"eH6jBQAAQBAJ","title":"Paradigms of Artificial Intelligence Programming","subtitle":"Case Studies in Common Lisp","authors":["Peter Norvig"],"shelf":"read","averageRating":5,"ratingsCount":1,"categories":["Computers"],"imageLinks":{"smallThumbnail":"http://books.google.com/books/content?id=eH6jBQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api","thumbnail":"http://books.google.com/books/content?id=eH6jBQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"}}]}]`;
+    window.localStorage.setItem("shelves", shelves);
+    window.localStorage.setItem("totalBooks", "3");
+    cy.reload();
+    cy.get("h1").contains("My Reads (3)");
+  });
 });
 
 describe("loading home page (/) with 3 books in 3 bookshelves", () => {
@@ -121,5 +129,10 @@ describe("removing all the books", () => {
     cy.get("h1").contains("My Reads");
     cy.get("button.btn-delete").should("not.exist");
     cy.get("div.bookshelf").contains("Please add some books...");
+  });
+
+  it("should not load any books from localStorage", () => {
+    cy.reload();
+    cy.get("h1").contains("My Reads");
   });
 });
