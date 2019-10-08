@@ -9,12 +9,12 @@ describe("adding 1 book from /search page", () => {
       .should("contain", "Search by title or author");
   });
 
-  it("type query 'art'", () => {
+  it("type query 'Art'", () => {
     cy.get("input")
       .type("art")
-      .should("have.value", "art");
+      .should("have.value", "Art");
 
-    cy.contains("Showing 20 results for search 'art'.");
+    cy.contains("Showing 20 results for search 'Art'.");
 
     cy.get("select")
       .first()
