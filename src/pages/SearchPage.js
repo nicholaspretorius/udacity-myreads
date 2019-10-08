@@ -16,7 +16,6 @@ class SearchPage extends Component {
   // TODO: shelf name is lost when searching again. Need better way to handle this.
 
   handleChange = _.debounce(async query => {
-    console.log(query);
     this.setState({ query });
     let results = [];
 
