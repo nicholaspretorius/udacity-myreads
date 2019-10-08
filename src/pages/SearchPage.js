@@ -5,15 +5,21 @@ import _ from "lodash";
 import { search } from "./../BooksAPI";
 
 import Book from "./components/Book";
+import { flattenShelves } from "./../services/local";
 
 class SearchPage extends Component {
   state = {
     query: "",
     hasSearched: false,
-    results: []
+    results: [],
+    savedBooks: []
   };
 
   // TODO: shelf name is lost when searching again. Need better way to handle this.
+  componentDidMount() {
+    const savedBooks = flattenShelves();
+    this.setState({ savedBooks });
+  }
 
   handleChange = _.debounce(async query => {
     this.setState({ query });
@@ -21,6 +27,7 @@ class SearchPage extends Component {
 
     if (query !== "") {
       results = await search(query);
+      results = _.differenceBy(results, this.state.savedBooks, "id");
       this.setState({ hasSearched: true });
     }
 
