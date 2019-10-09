@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 
 import Bookshelf from "./components/Bookshelf";
 import PageTitle from "./components/PageTitle";
+import { getNumberOfBooksOnShelves } from "./../services/local";
 
 class MyBooksPage extends Component {
-  state = {};
-
-  componentDidMount() {}
-
   render() {
-    const { shelves, addBook, removeBook, total, deleteAll } = this.props;
+    const { shelves, addBook, removeBook, deleteAll } = this.props;
+    const total = getNumberOfBooksOnShelves(shelves);
 
     return (
       <div className="list-books">

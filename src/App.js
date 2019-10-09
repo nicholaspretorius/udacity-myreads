@@ -7,19 +7,16 @@ import MyBooksPage from "./pages/MyBooksPage";
 import SearchPage from "./pages/SearchPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { SHELVES } from "./services/data";
-import { getSavedBooks, getBooksCount, setStorage, clearStorage } from "./services/local";
+import { getSavedBooks, setStorage, clearStorage } from "./services/local";
 
 class BooksApp extends React.Component {
   state = {
-    shelves: [],
-    totalBooks: 0
+    shelves: []
   };
 
   componentDidMount() {
     const shelves = getSavedBooks();
-    const totalBooks = getBooksCount();
-
-    this.setState({ shelves, totalBooks });
+    this.setState({ shelves });
   }
 
   removeBookFromExistingShelf = book => {
@@ -35,7 +32,6 @@ class BooksApp extends React.Component {
 
     this.setState({ shelves });
     setStorage("shelves", shelves);
-    // localStorage.setItem("shelves", JSON.stringify(shelves));
   };
 
   handleAddBookToShelf = (book, shelf) => {
@@ -57,9 +53,7 @@ class BooksApp extends React.Component {
     if (shelf !== "none") {
       const shelfIndex = shelves.findIndex(s => s.id === shelf);
       shelves[shelfIndex].books = [...shelves[shelfIndex].books, newBook];
-      if (!book.shelf) {
-        this.addBookToTotal();
-      }
+
       this.setState({ shelves });
       localStorage.setItem("shelves", JSON.stringify(shelves));
     }
@@ -67,26 +61,7 @@ class BooksApp extends React.Component {
 
   handleRemoveBook = book => {
     this.removeBookFromExistingShelf(book.id);
-    if (book.shelf) {
-      this.removeBookFromTotal();
-    }
   };
-
-  addBookToTotal() {
-    this.setState(currentState => {
-      const total = currentState.totalBooks + 1;
-      setStorage("totalBooks", total);
-      return { totalBooks: total };
-    });
-  }
-
-  removeBookFromTotal() {
-    this.setState(currentState => {
-      const total = currentState.totalBooks - 1;
-      setStorage("totalBooks", total);
-      return { totalBooks: total };
-    });
-  }
 
   clearLocalStorage = () => {
     clearStorage();
@@ -94,14 +69,18 @@ class BooksApp extends React.Component {
   };
 
   render() {
-    const { shelves, totalBooks } = this.state;
+    const { shelves } = this.state;
     return (
       <div className="app">
         <Switch>
           <Route
             path="/search"
             render={() => (
-              <SearchPage addBook={this.handleAddBookToShelf} removeBook={this.handleRemoveBook} />
+              <SearchPage
+                addBook={this.handleAddBookToShelf}
+                removeBook={this.handleRemoveBook}
+                shelves={shelves}
+              />
             )}
           />
           <Route
@@ -113,7 +92,6 @@ class BooksApp extends React.Component {
                 addBook={this.handleAddBookToShelf}
                 removeBook={this.handleRemoveBook}
                 deleteAll={this.clearLocalStorage}
-                total={totalBooks}
                 {...props}
               />
             )}

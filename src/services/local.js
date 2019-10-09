@@ -12,18 +12,15 @@ export function getBooksCount() {
   return localStorage.getItem("totalBooks") ? localStorage.getItem("totalBooks") : 0;
 }
 
-export function clearStorage() {
-  localStorage.removeItem("shelves");
-  localStorage.removeItem("totalBooks");
-}
-
-export function flattenShelves() {
-  const shelves = localStorage.getItem("shelves")
-    ? JSON.parse(localStorage.getItem("shelves"))
-    : [];
+export function getNumberOfBooksOnShelves(shelves) {
   return shelves
     .map(shelf => {
       return shelf.books;
     })
-    .flat();
+    .flat().length;
+}
+
+export function clearStorage() {
+  localStorage.removeItem("shelves");
+  localStorage.removeItem("totalBooks");
 }
