@@ -22,5 +22,4 @@ export function getNumberOfBooksOnShelves(shelves) {
 
 export function clearStorage() {
   localStorage.removeItem("shelves");
-  localStorage.removeItem("totalBooks");
 }

@@ -6,7 +6,6 @@ import "./App.css";
 import MyBooksPage from "./pages/MyBooksPage";
 import SearchPage from "./pages/SearchPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import { SHELVES } from "./services/data";
 import { getSavedBooks, setStorage, clearStorage } from "./services/local";
 
 class BooksApp extends React.Component {
@@ -65,7 +64,7 @@ class BooksApp extends React.Component {
 
   clearLocalStorage = () => {
     clearStorage();
-    this.setState({ totalBooks: 0, shelves: SHELVES });
+    this.setState({ shelves: [] });
   };
 
   render() {
