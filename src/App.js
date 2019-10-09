@@ -6,41 +6,17 @@ import "./App.css";
 import MyBooksPage from "./pages/MyBooksPage";
 import SearchPage from "./pages/SearchPage";
 import NotFoundPage from "./pages/NotFoundPage";
-
-const SHELVES = [
-  {
-    id: "currentlyReading",
-    name: "Currently Reading",
-    books: []
-  },
-  {
-    id: "wantToRead",
-    name: "Want to Read",
-    books: []
-  },
-  {
-    id: "read",
-    name: "Read",
-    books: []
-  }
-];
+import { SHELVES } from "./services/data";
+import { getSavedBooks, setStorage, clearStorage } from "./services/local";
 
 class BooksApp extends React.Component {
   state = {
-    shelves: SHELVES,
-    totalBooks: 0
+    shelves: []
   };
 
   componentDidMount() {
-    const shelves = localStorage.getItem("shelves")
-      ? JSON.parse(localStorage.getItem("shelves"))
-      : this.state.shelves;
-
-    const totalBooks = localStorage.getItem("totalBooks")
-      ? localStorage.getItem("totalBooks")
-      : this.state.totalBooks;
-
-    this.setState({ shelves, totalBooks });
+    const shelves = getSavedBooks();
+    this.setState({ shelves });
   }
 
   removeBookFromExistingShelf = book => {
@@ -55,11 +31,10 @@ class BooksApp extends React.Component {
     });
 
     this.setState({ shelves });
-    localStorage.setItem("shelves", JSON.stringify(shelves));
+    setStorage("shelves", shelves);
   };
 
   handleAddBookToShelf = (book, shelf) => {
-    console.log("Book: ", book);
     this.removeBookFromExistingShelf(book.id);
 
     const newBook = {
@@ -78,53 +53,34 @@ class BooksApp extends React.Component {
     if (shelf !== "none") {
       const shelfIndex = shelves.findIndex(s => s.id === shelf);
       shelves[shelfIndex].books = [...shelves[shelfIndex].books, newBook];
-      if (!book.shelf) {
-        this.addBookToTotal();
-      }
+
       this.setState({ shelves });
       localStorage.setItem("shelves", JSON.stringify(shelves));
     }
   };
 
   handleRemoveBook = book => {
-    console.log("Remove book: ", book);
     this.removeBookFromExistingShelf(book.id);
-    if (book.shelf) {
-      this.removeBookFromTotal();
-    }
   };
 
-  addBookToTotal() {
-    this.setState(currentState => {
-      const total = currentState.totalBooks + 1;
-      localStorage.setItem("totalBooks", total);
-      return { totalBooks: total };
-    });
-  }
-
-  removeBookFromTotal() {
-    this.setState(currentState => {
-      const total = currentState.totalBooks - 1;
-      localStorage.setItem("totalBooks", total);
-      return { totalBooks: total };
-    });
-  }
-
   clearLocalStorage = () => {
-    localStorage.removeItem("shelves");
-    localStorage.removeItem("totalBooks");
+    clearStorage();
     this.setState({ totalBooks: 0, shelves: SHELVES });
   };
 
   render() {
-    const { shelves, totalBooks } = this.state;
+    const { shelves } = this.state;
     return (
       <div className="app">
         <Switch>
           <Route
             path="/search"
             render={() => (
-              <SearchPage addBook={this.handleAddBookToShelf} removeBook={this.handleRemoveBook} />
+              <SearchPage
+                addBook={this.handleAddBookToShelf}
+                removeBook={this.handleRemoveBook}
+                shelves={shelves}
+              />
             )}
           />
           <Route
@@ -136,7 +92,6 @@ class BooksApp extends React.Component {
                 addBook={this.handleAddBookToShelf}
                 removeBook={this.handleRemoveBook}
                 deleteAll={this.clearLocalStorage}
-                total={totalBooks}
                 {...props}
               />
             )}

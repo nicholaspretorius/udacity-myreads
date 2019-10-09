@@ -13,8 +13,6 @@ class SearchPage extends Component {
     results: []
   };
 
-  // TODO: shelf name is lost when searching again. Need better way to handle this.
-
   handleChange = _.debounce(async query => {
     this.setState({ query });
     let results = [];
@@ -27,9 +25,23 @@ class SearchPage extends Component {
     this.setState({ results });
   }, 500);
 
+  flattenShelves(shelves) {
+    return shelves
+      .map(shelf => {
+        return shelf.books;
+      })
+      .flat();
+  }
+
   render() {
-    const { query, hasSearched, results } = this.state;
-    const { addBook, removeBook } = this.props;
+    let { results } = this.state;
+    const { query, hasSearched } = this.state;
+    const { addBook, removeBook, shelves } = this.props;
+
+    let flatShelves = this.flattenShelves(shelves);
+
+    results = _.differenceBy(results, flatShelves, "id");
+    console.log("Results: ", results, " Saved Books: ", shelves);
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -61,7 +73,7 @@ class SearchPage extends Component {
             </ol>
           </div>
         )}
-        {hasSearched && results.error && (
+        {hasSearched && results.length === 0 && (
           <div className="search-books-results">
             <p>There are no results for that query.</p>
           </div>

@@ -3,12 +3,6 @@ import React, { Component } from "react";
 import Book from "./Book";
 
 class BookShelf extends Component {
-  state = {
-    // books: []
-  };
-
-  componentDidMount() {}
-
   render() {
     const { name, books, addBook, removeBook } = this.props;
     return (
