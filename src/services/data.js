@@ -1,4 +1,4 @@
-export const SHELVES = [
+export const EMPTY_SHELVES = [
   {
     id: "currentlyReading",
     name: "Currently Reading",

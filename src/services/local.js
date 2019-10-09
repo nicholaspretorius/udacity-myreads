@@ -1,11 +1,13 @@
-import { SHELVES } from "./data";
+import { EMPTY_SHELVES } from "./data";
 
 export function setStorage(key, values) {
   return localStorage.setItem(key, JSON.stringify(values));
 }
 
 export function getSavedBooks() {
-  return localStorage.getItem("shelves") ? JSON.parse(localStorage.getItem("shelves")) : SHELVES;
+  return localStorage.getItem("shelves")
+    ? JSON.parse(localStorage.getItem("shelves"))
+    : EMPTY_SHELVES;
 }
 
 export function getBooksCount() {
