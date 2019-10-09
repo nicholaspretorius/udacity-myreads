@@ -7,31 +7,31 @@ describe("entering various search terms", () => {
     cy.get("input")
       .type("biography")
       .should("have.value", "biography");
-
     cy.contains("Showing 20 results for search 'biography'.");
+    cy.get("input").clear();
   });
 
   it("type query 'poetry'", () => {
     cy.get("input")
       .type("biography")
       .should("have.value", "biography");
-
     cy.contains("Showing 20 results for search 'biography'.");
+    cy.get("input").clear();
   });
 
   it("type query 'thrun'", () => {
     cy.get("input")
       .type("thrun")
       .should("have.value", "thrun");
-
     cy.contains("Showing 20 results for search 'thrun'.");
+    cy.get("input").clear();
   });
 
   it("type query 'Virtual Reality'", () => {
     cy.get("input")
       .type("Virtual Reality")
       .should("have.value", "Virtual Reality");
-
     cy.contains("Showing 20 results for search 'Virtual Reality'.");
+    cy.get("input").clear();
   });
 });

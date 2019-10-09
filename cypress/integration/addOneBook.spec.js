@@ -9,17 +9,16 @@ describe("adding 1 book from /search page", () => {
       .should("contain", "Search by title or author");
   });
 
-  it("type query 'Art'", () => {
+  it("type query 'art'", () => {
     cy.get("input")
       .type("art")
-      .should("have.value", "Art");
+      .should("have.value", "art");
 
-    cy.contains("Showing 20 results for search 'Art'.");
+    cy.contains("Showing 20 results for search 'art'.");
 
     cy.get("select")
       .first()
-      .select("Want to Read")
-      .should("have.value", "wantToRead");
+      .select("Want to Read");
   });
 
   it("click on the back button", () => {

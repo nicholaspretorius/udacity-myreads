@@ -17,24 +17,20 @@ describe("adding 1 book from /search page", () => {
     cy.contains("Showing 20 results for search 'development'.");
 
     cy.get("select")
-      .eq(1)
-      .select("Want to Read")
-      .should("have.value", "wantToRead");
+      .first()
+      .select("Want to Read");
 
     cy.get("select")
-      .eq(2)
-      .select("Currently Reading")
-      .should("have.value", "currentlyReading");
+      .first()
+      .select("Currently Reading");
 
     cy.get("select")
-      .eq(3)
-      .select("Read")
-      .should("have.value", "read");
+      .first()
+      .select("Read");
 
     cy.get("select")
-      .eq(4)
-      .select("None")
-      .should("have.value", "none");
+      .first()
+      .select("None");
   });
 
   it("clicks on the back button", () => {
