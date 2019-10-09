@@ -73,7 +73,7 @@ class SearchPage extends Component {
             </ol>
           </div>
         )}
-        {hasSearched && results.error && (
+        {hasSearched && results.length === 0 && (
           <div className="search-books-results">
             <p>There are no results for that query.</p>
           </div>
