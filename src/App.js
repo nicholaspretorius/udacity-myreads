@@ -1,10 +1,11 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 // import * as BooksAPI from './BooksAPI'
 import "./App.css";
 
 import MyBooksPage from "./pages/MyBooksPage";
 import SearchPage from "./pages/SearchPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const SHELVES = [
   {
@@ -119,26 +120,29 @@ class BooksApp extends React.Component {
     const { shelves, totalBooks } = this.state;
     return (
       <div className="app">
-        <Route
-          path="/search"
-          render={() => (
-            <SearchPage addBook={this.handleAddBookToShelf} removeBook={this.handleRemoveBook} />
-          )}
-        />
-        <Route
-          path="/"
-          exact
-          render={props => (
-            <MyBooksPage
-              shelves={shelves}
-              addBook={this.handleAddBookToShelf}
-              removeBook={this.handleRemoveBook}
-              deleteAll={this.clearLocalStorage}
-              total={totalBooks}
-              {...props}
-            />
-          )}
-        />
+        <Switch>
+          <Route
+            path="/search"
+            render={() => (
+              <SearchPage addBook={this.handleAddBookToShelf} removeBook={this.handleRemoveBook} />
+            )}
+          />
+          <Route
+            path="/"
+            exact
+            render={props => (
+              <MyBooksPage
+                shelves={shelves}
+                addBook={this.handleAddBookToShelf}
+                removeBook={this.handleRemoveBook}
+                deleteAll={this.clearLocalStorage}
+                total={totalBooks}
+                {...props}
+              />
+            )}
+          />
+          <Route component={NotFoundPage} />
+        </Switch>
       </div>
     );
   }
