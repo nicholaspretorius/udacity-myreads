@@ -41,7 +41,7 @@ class SearchPage extends Component {
     let flatShelves = this.flattenShelves(shelves);
 
     results = _.differenceBy(results, flatShelves, "id");
-    console.log("Results: ", results, " Saved Books: ", shelves);
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
