@@ -11,12 +11,11 @@ To get started right away:
 * cd udacity-myreads
 * Install all project dependencies with `npm install`
 * Start the development server with `npm start`
-* Run e2e tests with `npm run e2e` (Ctrl + C to quit)
+* Run e2e tests with `npm run e2e`
 
 Please note: 
 
 * To run e2e tests, you must *already* have the app running from `npm start`.
-* e2e tests run in "chrome" - if you do not have chrome and want to see the tests, run `npm run cy`. This will open Cypress (Ctrl + C to quite). 
 
 ### Overview
 
