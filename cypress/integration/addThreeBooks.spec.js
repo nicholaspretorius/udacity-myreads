@@ -21,15 +21,15 @@ describe("adding 1 book from /search page", () => {
       .select("Want to Read");
 
     cy.get("select")
-      .first()
+      .eq(1)
       .select("Currently Reading");
 
     cy.get("select")
-      .first()
+      .eq(2)
       .select("Read");
 
     cy.get("select")
-      .first()
+      .eq(3)
       .select("None");
   });
 
