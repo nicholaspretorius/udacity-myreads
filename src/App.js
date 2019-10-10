@@ -7,11 +7,26 @@ import MyBooksPage from "./pages/MyBooksPage";
 import SearchPage from "./pages/SearchPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { getSavedBooks, setStorage, clearStorage } from "./services/local";
-import { EMPTY_SHELVES } from "./services/data";
 
 class BooksApp extends React.Component {
   state = {
-    shelves: EMPTY_SHELVES
+    shelves: [
+      {
+        id: "currentlyReading",
+        name: "Currently Reading",
+        books: []
+      },
+      {
+        id: "wantToRead",
+        name: "Want to Read",
+        books: []
+      },
+      {
+        id: "read",
+        name: "Read",
+        books: []
+      }
+    ]
   };
 
   componentDidMount() {
