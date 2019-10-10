@@ -16,10 +16,13 @@ class SearchPage extends Component {
   handleChange = _.debounce(async query => {
     this.setState({ query });
     let results = [];
+    let flatShelves = this.flattenShelves(this.props.shelves);
 
     if (query !== "") {
       results = await search(query);
-      this.setState({ hasSearched: true });
+      const merged = [..._.unionBy(flatShelves, results, "id")];
+      this.setState({ results: merged, hasSearched: true });
+      return;
     }
 
     this.setState({ results });
@@ -29,17 +32,14 @@ class SearchPage extends Component {
     const flatShelf = shelves.map(shelf => {
       return shelf.books;
     });
+
     return _.flatten(flatShelf);
   }
 
   render() {
     let { results } = this.state;
     const { query, hasSearched } = this.state;
-    const { addBook, removeBook, shelves } = this.props;
-
-    let flatShelves = this.flattenShelves(shelves);
-
-    results = _.differenceBy(results, flatShelves, "id");
+    const { addBook, removeBook } = this.props;
 
     return (
       <div className="search-books">

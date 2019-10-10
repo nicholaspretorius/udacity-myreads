@@ -53,15 +53,8 @@ class BooksApp extends React.Component {
     this.removeBookFromExistingShelf(book.id);
 
     const newBook = {
-      id: book.id,
-      title: book.title,
-      subtitle: book.subtitle,
-      authors: book.authors,
-      shelf: shelf,
-      averageRating: book.averageRating,
-      ratingsCount: book.ratingsCount,
-      categories: book.categories,
-      imageLinks: book.imageLinks
+      ...book,
+      shelf: shelf
     };
 
     const shelves = [...this.state.shelves];
