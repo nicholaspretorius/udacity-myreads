@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { EMPTY_SHELVES } from "./data";
 
 export function setStorage(key, values) {
   return localStorage.setItem(key, JSON.stringify(values));
@@ -8,7 +7,23 @@ export function setStorage(key, values) {
 export function getSavedBooks() {
   return localStorage.getItem("shelves")
     ? JSON.parse(localStorage.getItem("shelves"))
-    : EMPTY_SHELVES;
+    : [
+        {
+          id: "currentlyReading",
+          name: "Currently Reading",
+          books: []
+        },
+        {
+          id: "wantToRead",
+          name: "Want to Read",
+          books: []
+        },
+        {
+          id: "read",
+          name: "Read",
+          books: []
+        }
+      ];
 }
 
 export function getBooksCount() {
