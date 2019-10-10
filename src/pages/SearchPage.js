@@ -26,11 +26,10 @@ class SearchPage extends Component {
   }, 500);
 
   flattenShelves(shelves) {
-    return shelves
-      .map(shelf => {
-        return shelf.books;
-      })
-      .flat();
+    const flatShelf = shelves.map(shelf => {
+      return shelf.books;
+    });
+    return _.flatten(flatShelf);
   }
 
   render() {

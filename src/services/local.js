@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { EMPTY_SHELVES } from "./data";
 
 export function setStorage(key, values) {
@@ -15,11 +16,10 @@ export function getBooksCount() {
 }
 
 export function getNumberOfBooksOnShelves(shelves) {
-  return shelves
-    .map(shelf => {
-      return shelf.books;
-    })
-    .flat().length;
+  const flatShelf = shelves.map(shelf => {
+    return shelf.books;
+  });
+  return _.flatten(flatShelf).length;
 }
 
 export function clearStorage() {
